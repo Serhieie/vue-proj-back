@@ -24,11 +24,7 @@ const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 const corsOptions = {
-  origin: [
-    'https://serhieie.github.io/',
-    'http://localhost:5173',
-    'http://localhost:3000',
-  ],
+  origin: '*',
   credentials: true,
 };
 
