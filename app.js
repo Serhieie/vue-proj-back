@@ -25,10 +25,7 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 const corsOptions = {
   origin: [
-    'https://serhieie.github.io/goit-vue-project/',
-    'https://serhieie.github.io/goit-vue-project/auth/login',
-    'https://serhieie.github.io/goit-vue-project/auth/register',
-    'https://serhieie.github.io/goit-vue-project/map',
+    'https://serhieie.github.io/',
     'http://localhost:5173',
     'http://localhost:3000',
   ],
