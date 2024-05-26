@@ -27,7 +27,7 @@
   ],
 
   "paths": {
-    "/user/register": {
+    "/api/user/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -65,7 +65,7 @@
         }
       }
     },
-    "/user/login": {
+    "/api/user/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -99,7 +99,7 @@
         }
       }
     },
-    "/user/refresh": {
+    "/api/user/refresh": {
       "get": {
         "tags": ["Auth"],
         "summary": "Get current user",
@@ -123,7 +123,7 @@
         }
       }
     },
-    "/user/logout": {
+    "/api/user/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -142,7 +142,7 @@
         }
       }
     },
-    "/user/update-profile": {
+    "/api/user/update-profile": {
       "patch": {
         "tags": ["Auth"],
         "operationId": "uploadFile",
@@ -195,7 +195,7 @@
         }
       }
     },
-    "/user/google": {
+    "/api/user/google": {
       "get": {
         "tags": ["Auth"],
         "summary": "User login with google",
@@ -208,7 +208,7 @@
         }
       }
     },
-    "/points": {
+    "/api/points": {
       "get": {
         "tags": ["Points"],
         "summary": "Get all boards",
@@ -232,7 +232,7 @@
         }
       }
     },
-    "/points/post": {
+    "/api/points/post": {
       "post": {
         "tags": ["Points"],
         "summary": "Post board",
@@ -271,7 +271,7 @@
         }
       }
     },
-    "/points/patch": {
+    "/api/points/patch": {
       "patch": {
         "tags": ["Points"],
         "summary": "Update bord on the server",
@@ -314,7 +314,7 @@
         }
       }
     },
-    "/points/delete/{pointId}": {
+    "/api/points/delete/{pointId}": {
       "delete": {
         "tags": ["Points"],
         "summary": "Delete board from the server",
