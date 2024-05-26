@@ -12,8 +12,8 @@
   "consumes": ["application/json", "multipart/formData"],
   "produces": ["application/json"],
   "servers": [
-    { "url": "https://vue-proj-back.onrender.com/api" },
-    { "url": "http://localhost:3000/api" }
+    { "url": "https://vue-proj-back.onrender.com" },
+    { "url": "http://localhost:3000" }
   ],
   "tags": [
     {
