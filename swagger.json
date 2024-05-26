@@ -12,8 +12,8 @@
   "consumes": ["application/json", "multipart/formData"],
   "produces": ["application/json"],
   "servers": [
-     { "url": "https://reactoctopus-back.onrender.com/api" },
-       { "url": "http://localhost:3000/api" }
+    { "url": "https://vue-proj-back.onrender.com/api" },
+    { "url": "http://localhost:3000/api" }
   ],
   "tags": [
     {
@@ -103,8 +103,7 @@
       "get": {
         "tags": ["Auth"],
         "summary": "Get current user",
-        "parameters": [
-        ],
+        "parameters": [],
         "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
@@ -128,7 +127,7 @@
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
-        "parameters": [ ],
+        "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {},
         "responses": {
@@ -145,9 +144,7 @@
     },
     "/user/update-profile": {
       "patch": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "operationId": "uploadFile",
         "summary": "Update user profile",
         "description": "Endpoint to update user profile information",
@@ -215,9 +212,7 @@
       "get": {
         "tags": ["Points"],
         "summary": "Get all boards",
-        "parameters": [
-   
-        ],
+        "parameters": [],
         "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
@@ -241,9 +236,7 @@
       "post": {
         "tags": ["Points"],
         "summary": "Post board",
-        "parameters": [
-        
-        ],
+        "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Post board object",
@@ -282,8 +275,7 @@
       "patch": {
         "tags": ["Points"],
         "summary": "Update bord on the server",
-        "parameters": [
-        ],
+        "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Update board object at the server",
@@ -327,15 +319,15 @@
         "tags": ["Points"],
         "summary": "Delete board from the server",
         "parameters": [
-            {
-           "in": "path",
-          "name": "pointId",
-          "schema": {
-                 "type": "string",
-          "required": true,
-          "description": "Id of the Item"
+          {
+            "in": "path",
+            "name": "pointId",
+            "schema": {
+              "type": "string",
+              "required": true,
+              "description": "Id of the Item"
+            }
           }
-        }
         ],
         "security": [{ "Bearer": [] }],
         "responses": {
@@ -383,7 +375,7 @@
             "example": "qwerty123"
           }
         }
-      }, 
+      },
       "LoginRequest": {
         "type": "object",
         "required": ["name", "email", "password"],
@@ -414,7 +406,7 @@
             "description": "User's password",
             "example": "qwerty123"
           },
-           "theme": {
+          "theme": {
             "type": "string",
             "description": "Chosed theme",
             "example": "dark"
@@ -425,13 +417,12 @@
             "example": "http://avatarpath.com/path"
           }
         },
-        "example": 
-{
-  "theme": "dark",
-  "name": "Andy Machine",
-  "email": "user@example.com",
-  "avatarURL": "http://avatarpath.com/path"
-}
+        "example": {
+          "theme": "dark",
+          "name": "Andy Machine",
+          "email": "user@example.com",
+          "avatarURL": "http://avatarpath.com/path"
+        }
       },
       "UpdateInfoRequest": {
         "type": "object",
@@ -447,7 +438,7 @@
             "description": "User's password",
             "example": "qwerty123"
           },
-           "theme": {
+          "theme": {
             "type": "string",
             "description": "Chosed theme",
             "example": "dark"
@@ -457,13 +448,12 @@
             "description": "User's password"
           }
         },
-        "example": 
-{
-  "theme": "dark",
-  "name": "Andy Machine",
-  "email": "user@example.com",
-  "avatarURL": "http://avatarpath.com/path"
-}
+        "example": {
+          "theme": "dark",
+          "name": "Andy Machine",
+          "email": "user@example.com",
+          "avatarURL": "http://avatarpath.com/path"
+        }
       },
       "CurrentRequest": {
         "type": "object",
@@ -474,169 +464,159 @@
         "required": ["title", "description", "img", "coordinates"],
         "properties": {
           "title": {
-              "type": "string",
-              "description": "User point title",
-              "example": "Локація"
+            "type": "string",
+            "description": "User point title",
+            "example": "Локація"
+          },
+          "description": {
+            "type": "string",
+            "description": "User point description",
+            "example": "Локація"
+          },
+          "img": {
+            "type": "string",
+            "description": "Background image url",
+            "example": "https://example/images/sakura.webp"
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "description": "Coordinates of point",
+              "example": 50.4339063
             },
-            "description": {
-              "type": "string",
-              "description": "User point description",
-              "example": "Локація"
-            },
-            "img": {
-              "type": "string",
-              "description": "Background image url",
-              "example": "https://example/images/sakura.webp"
-            },
-            "coordinates": {
-                "type": "array",
-                "items": {
-                    "type": "number",
-                    "description": "Coordinates of point", 
-                    "example": 50.4339063
-                },
-                "example": [50.4339063,
-      30.5552953]
-            }
-
+            "example": [50.4339063, 30.5552953]
+          }
         },
         "example": {
-  "title": "Локація",
-  "description": "Опис Локації",
-  "img": "img.png",
-  "coordinates": [
-    50.4339063,
-    30.5552953
-  ]
-}
+          "title": "Локація",
+          "description": "Опис Локації",
+          "img": "img.png",
+          "coordinates": [50.4339063, 30.5552953]
+        }
       },
       "PatchPointRequest": {
-         "type": "object",
+        "type": "object",
         "required": ["id", "title", "description", "img", "coordinates"],
         "properties": {
-            "id": {
-              "type": "string",
-              "description": "Point Id",
-              "example": "6631f3841c36049d76cf1ac3"
-            },
+          "id": {
+            "type": "string",
+            "description": "Point Id",
+            "example": "6631f3841c36049d76cf1ac3"
+          },
           "title": {
-              "type": "string",
-              "description": "User point title",
-              "example": "Локація"
+            "type": "string",
+            "description": "User point title",
+            "example": "Локація"
+          },
+          "description": {
+            "type": "string",
+            "description": "User point description",
+            "example": "Локація"
+          },
+          "img": {
+            "type": "string",
+            "description": "Background image url",
+            "example": "https://example/images/sakura.webp"
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "description": "Coordinates of point",
+              "example": 50.4339063
             },
-            "description": {
-              "type": "string",
-              "description": "User point description",
-              "example": "Локація"
-            },
-            "img": {
-              "type": "string",
-              "description": "Background image url",
-              "example": "https://example/images/sakura.webp"
-            },
-            "coordinates": {
-                "type": "array",
-                "items": {
-                    "type": "number",
-                    "description": "Coordinates of point", 
-                    "example": 50.4339063
-                },
-                "example": [50.4339063,
-      30.5552953]
-            }
-
+            "example": [50.4339063, 30.5552953]
+          }
         },
-  "example": {
-  "id": "6631f3841c36049d76cf1ac3",
-  "title": "Локація",
-  "description": "Опис Локації",
-  "img": "img.png",
-  "coordinates": [
-    50.4339063,
-    30.5552953
-  ]
-}
+        "example": {
+          "id": "6631f3841c36049d76cf1ac3",
+          "title": "Локація",
+          "description": "Опис Локації",
+          "img": "img.png",
+          "coordinates": [50.4339063, 30.5552953]
+        }
       },
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-           "user": {
-     "theme": {
-            "type": "string",
-            "description": "User's theme",
-            "example": "dark"
+          "user": {
+            "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "dark"
+            },
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "Andy Machine"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": ""
+            }
           },
-   "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Andy Machine"
-          },
-     "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-    "avatarURL": {
-            "type": "string",
-            "description": "User's avatar",
-            "example": ""
-          }
-        },
           "token": {
             "type": "string",
             "description": "User's token",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzFmMzg0MWMzNjA0OWQ3NmNmMWFjMyIsImlhdCI6MTcxNDU0OTYzNiwiZXhwIjoxNzE0NTUzMjM2fQ._bvC8euAfl_oehYuN8q7Ymtgc3T6Y3VpfYSFrJWgp_k"
           }
         },
-       "example": {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDFkMzFlMmExM2Y3OTg4ZTA5MTllNSIsImlhdCI6MTcxNTU4OTkxOCwiZXhwIjoxNzE1NjcyNzE4fQ.h_Y2CEPt7mQkTRDEdMmb9K5tL5u8vWoaKIfAPCmHM58",
-  "user": {
-    "theme": "dark",
-    "name": "An Machine",
-    "email": "ur@example.com",
-    "avatarURL": ""
-  }
-}
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDFkMzFlMmExM2Y3OTg4ZTA5MTllNSIsImlhdCI6MTcxNTU4OTkxOCwiZXhwIjoxNzE1NjcyNzE4fQ.h_Y2CEPt7mQkTRDEdMmb9K5tL5u8vWoaKIfAPCmHM58",
+          "user": {
+            "theme": "dark",
+            "name": "An Machine",
+            "email": "ur@example.com",
+            "avatarURL": ""
+          }
+        }
       },
       "LoginResponse": {
         "type": "object",
         "properties": {
-                "user": {
-     "theme": {
-            "type": "string",
-            "description": "User's theme",
-            "example": "dark"
+          "user": {
+            "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "dark"
+            },
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "Andy Machine"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": ""
+            }
           },
-   "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Andy Machine"
-          },
-     "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-    "avatarURL": {
-            "type": "string",
-            "description": "User's avatar",
-            "example": ""
-          }
-        },
           "token": {
             "type": "string",
             "description": "User's token",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzFmMzg0MWMzNjA0OWQ3NmNmMWFjMyIsImlhdCI6MTcxNDU0OTYzNiwiZXhwIjoxNzE0NTUzMjM2fQ._bvC8euAfl_oehYuN8q7Ymtgc3T6Y3VpfYSFrJWgp_k"
           }
         },
-       "example": {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDFkMzFlMmExM2Y3OTg4ZTA5MTllNSIsImlhdCI6MTcxNTU4OTkxOCwiZXhwIjoxNzE1NjcyNzE4fQ.h_Y2CEPt7mQkTRDEdMmb9K5tL5u8vWoaKIfAPCmHM58",
-  "user": {
-    "theme": "dark",
-    "name": "An Machine",
-    "email": "ur@example.com",
-    "avatarURL": ""
-  }
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDFkMzFlMmExM2Y3OTg4ZTA5MTllNSIsImlhdCI6MTcxNTU4OTkxOCwiZXhwIjoxNzE1NjcyNzE4fQ.h_Y2CEPt7mQkTRDEdMmb9K5tL5u8vWoaKIfAPCmHM58",
+          "user": {
+            "theme": "dark",
+            "name": "An Machine",
+            "email": "ur@example.com",
+            "avatarURL": ""
+          }
         }
       },
       "CurrentResponse": {
@@ -667,62 +647,64 @@
       "GetAllPointsResponse": {
         "type": "array",
         "items": {
-          "result":{
-           "type": "object",
-          "required": ["title", "img", "description", "owner", "_id", "coordinates"],
-          "properties": {
-            "title": {
-              "type": "string",
-              "description": "User point title",
-              "example": "Локація"
-            },
-            "description": {
-              "type": "string",
-              "description": "User point description",
-              "example": "Локація"
-            },
-            "img": {
-              "type": "string",
-              "description": "Background image url",
-              "example": "https://example/images/sakura.webp"
-            },
-            "coordinates": {
+          "result": {
+            "type": "object",
+            "required": [
+              "title",
+              "img",
+              "description",
+              "owner",
+              "_id",
+              "coordinates"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "User point title",
+                "example": "Локація"
+              },
+              "description": {
+                "type": "string",
+                "description": "User point description",
+                "example": "Локація"
+              },
+              "img": {
+                "type": "string",
+                "description": "Background image url",
+                "example": "https://example/images/sakura.webp"
+              },
+              "coordinates": {
                 "type": "array",
                 "items": {
-                    "type": "number",
-                    "description": "Coordinates of point", 
-                    "example": 50.4339063
+                  "type": "number",
+                  "description": "Coordinates of point",
+                  "example": 50.4339063
                 },
-                "example": [50.4339063,
-      30.5552953]
-            },
-            "owner": {
-              "type": "string",
-              "discription": "owner of point",
-              "example": "6631f3841c36049d76cf1ac3"
-            },
-            "_id": {
-              "type": "string",
-              "description": "board id",
-              "example": "6631f3841c36049d76cf1ac3"
+                "example": [50.4339063, 30.5552953]
+              },
+              "owner": {
+                "type": "string",
+                "discription": "owner of point",
+                "example": "6631f3841c36049d76cf1ac3"
+              },
+              "_id": {
+                "type": "string",
+                "description": "board id",
+                "example": "6631f3841c36049d76cf1ac3"
+              }
             }
-          }
-      
           }
         },
         "example": [
-  {
-    "_id": "642fe9e82316g5089068395",
-    "title": "Локація",
-    "description": "Опис Локації",
-    "img": "img.png",
-    "owner": "642fe9e82510b1231233213",
-    "coordinates": [
-      50.4339063,
-      30.5552953
-    ]
-  }
-]
+          {
+            "_id": "642fe9e82316g5089068395",
+            "title": "Локація",
+            "description": "Опис Локації",
+            "img": "img.png",
+            "owner": "642fe9e82510b1231233213",
+            "coordinates": [50.4339063, 30.5552953]
+          }
+        ]
       },
       "PostPointResponse": {
         "type": "object",
@@ -731,13 +713,13 @@
           "message": {
             "type": "string",
             "description": "Success message",
-            "example":  "success"
+            "example": "success"
           }
         },
         "example": {
-                "message": "success"
-            }
-        },
+          "message": "success"
+        }
+      },
       "PatchPointResponse": {
         "type": "object",
         "required": ["message"],
@@ -745,13 +727,13 @@
           "message": {
             "type": "string",
             "description": "Success message",
-            "example":  "success"
+            "example": "success"
           }
         },
         "example": {
-                "message": "success"
-            }
-        },
+          "message": "success"
+        }
+      },
       "DeletePointResponse": {
         "type": "object",
         "required": ["message"],
@@ -759,20 +741,20 @@
           "message": {
             "type": "string",
             "description": "Success message",
-            "example":  "success"
+            "example": "success"
           }
         },
         "example": {
-                "message": "Success delete operation"
-            }
+          "message": "Success delete operation"
         }
-      },
-          "securitySchemes": {
+      }
+    },
+    "securitySchemes": {
       "Bearer": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     }
-    }
   }
+}
