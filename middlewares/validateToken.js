@@ -3,7 +3,7 @@ import 'dotenv/config';
 import helpers from '../helpers/index.js';
 import { findUserById } from '../services/authServise.js';
 
-const SECRET_KEY = process.env.SECRET_KEY;
+const ACCESS_SECRET_KEY = process.env.ACCESS_SECRET_KEY;
 
 export const validateToken = async (req, res, next) => {
   const authString = req.headers.authorization;
@@ -15,7 +15,7 @@ export const validateToken = async (req, res, next) => {
     if (Bearer !== 'Bearer') {
       return next(helpers.httpError(401, 'Not authorized'));
     }
-    const { id } = jwt.verify(token, SECRET_KEY);
+    const { id } = jwt.verify(token, ACCESS_SECRET_KEY);
 
     const user = await findUserById(id);
 

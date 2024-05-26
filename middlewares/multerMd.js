@@ -16,6 +16,7 @@ const storage = new CloudinaryStorage({
       folder = 'avatars';
     }
     if (file.fieldname === 'img') {
+      console.log(file.fieldname);
       folder = 'pointImg';
     }
     return {

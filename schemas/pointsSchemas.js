@@ -7,6 +7,7 @@ export const createPointSchema = Joi.object({
     .items(Joi.number().required(), Joi.number().required())
     .length(2)
     .required(),
+  img: Joi.string().allow(''),
 });
 
 export const updatePointSchema = Joi.object({
@@ -14,4 +15,5 @@ export const updatePointSchema = Joi.object({
   title: Joi.string(),
   description: Joi.string(),
   coordinates: Joi.array().items(Joi.number(), Joi.number()).length(2),
+  img: Joi.string().allow(''),
 });

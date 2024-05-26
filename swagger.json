@@ -45,7 +45,7 @@
         },
         "responses": {
           "201": {
-            "description": "Successful operation",
+            "description": "Upon successful login, a refreshToken cookie is set in the response. Example cookie: 'Set-Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTRiNGZkMWIxNDkyMjM2YjhlOTRkNDQiLCJpYXQiOjE2OTk4NzE5Njh9.d2_cCAyJgFqyAqvxVrn3HjO9TgqEk-E2TvxGWYYdjYg; Path=/; HttpOnly;'",
             "content": {
               "application/json": {
                 "schema": {
@@ -83,7 +83,7 @@
         },
         "responses": {
           "201": {
-            "description": "Successful operation",
+            "description": "Upon successful login, a refreshToken cookie is set in the response. Example cookie: 'Set-Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTRiNGZkMWIxNDkyMjM2YjhlOTRkNDQiLCJpYXQiOjE2OTk4NzE5Njh9.d2_cCAyJgFqyAqvxVrn3HjO9TgqEk-E2TvxGWYYdjYg; Path=/; HttpOnly;'",
             "content": {
               "application/json": {
                 "schema": {
@@ -107,7 +107,7 @@
         "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
-            "description": "Successful operation",
+            "description": "Successful operation will return new accessToken",
             "content": {
               "application/json": {
                 "schema": {
@@ -148,7 +148,7 @@
       }
     },
     "/user/logout": {
-      "post": {
+      "get": {
         "tags": ["Auth"],
         "summary": "User logout",
         "parameters": [],

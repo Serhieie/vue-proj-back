@@ -6,8 +6,12 @@ import axios from 'axios';
 import { createUser, updateUser } from '../../services/authServise.js';
 import { User } from '../../models/user.js';
 
-const SECRET_KEY = process.env.SECRET_KEY;
-const EXPIRES_TIME = process.env.EXPIRES_TIME;
+const {
+  ACCESS_SECRET_KEY,
+  REFRESH_EXPIRES_TIME,
+  REFRESH_SECRET_KEY,
+  ACCESS_EXPIRED_TIME,
+} = process.env;
 
 export const googleAuth = (req, res) => {
   const stringifiedParams = queryString.stringify({
@@ -80,12 +84,23 @@ export const googleRedirect = async (req, res) => {
     });
 
     const payload = { id: newUser._id };
-    const token = jwt.sign(payload, SECRET_KEY, {
-      expiresIn: EXPIRES_TIME,
+    const token = jwt.sign(payload, ACCESS_SECRET_KEY, {
+      expiresIn: ACCESS_EXPIRED_TIME,
+    });
+
+    const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+      expiresIn: REFRESH_EXPIRES_TIME,
     });
 
     await updateUser(newUser._id, { token });
 
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
     return res.redirect(
       `${process.env.FRONTEND_URL}auth/google/?token=${token}`
     );
@@ -93,11 +108,23 @@ export const googleRedirect = async (req, res) => {
     if (!user.googleId) {
       const isValidGoogleId = await helpers.createHash(id);
       const payload = { id: user._id };
-      const token = jwt.sign(payload, SECRET_KEY, {
-        expiresIn: EXPIRES_TIME,
+      const token = jwt.sign(payload, ACCESS_SECRET_KEY, {
+        expiresIn: ACCESS_EXPIRED_TIME,
       });
+
+      const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+        expiresIn: REFRESH_EXPIRES_TIME,
+      });
+
       await updateUser(user._id, { token, googleId: isValidGoogleId });
 
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        path: '/',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
       return res.redirect(
         `${process.env.FRONTEND_URL}auth/google/?token=${token}`
       );
@@ -108,10 +135,21 @@ export const googleRedirect = async (req, res) => {
         throw helpers.httpError(401, 'GoogleId is wrong');
       }
       const payload = { id: user._id };
-      const token = jwt.sign(payload, SECRET_KEY, {
-        expiresIn: EXPIRES_TIME,
+      const token = jwt.sign(payload, ACCESS_SECRET_KEY, {
+        expiresIn: ACCESS_EXPIRED_TIME,
+      });
+      const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+        expiresIn: REFRESH_EXPIRES_TIME,
       });
       await updateUser(user._id, { token });
+
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        path: '/',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
       return res.redirect(
         `${process.env.FRONTEND_URL}auth/google/?token=${token}`
       );

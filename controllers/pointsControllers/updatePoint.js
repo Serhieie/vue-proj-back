@@ -7,14 +7,15 @@ export const updatePoint = async (req, res) => {
   }
 
   const image = req.file;
+  const { img, id: pointId } = req.body;
   const { _id: owner } = req.user;
 
   const newProfile = {
     ...req.body,
-    avatarURL: image ? image.path : avatarURL,
+    img: image ? image.path : img,
   };
 
-  const result = await updatePointByFilter({ owner }, newProfile);
+  const result = await updatePointByFilter({ owner, _id: pointId }, newProfile);
 
   if (!result) {
     throw httpError(404, `Column with id: ${id} not found`);

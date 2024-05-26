@@ -21,11 +21,11 @@ authRouter.post(
   authCtrl.login
 );
 
-authRouter.post('/logout', middleware.validateToken, authCtrl.logout);
+authRouter.get('/logout', middleware.validateToken, authCtrl.logout);
 
 authRouter.get('/me', middleware.validateToken, authCtrl.me);
 
-authRouter.get('/refresh', middleware.validateToken, authCtrl.refresh);
+authRouter.get('/refresh', authCtrl.refresh);
 
 authRouter.patch(
   '/update-profile',

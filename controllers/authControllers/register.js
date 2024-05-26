@@ -7,8 +7,12 @@ import {
   updateUser,
 } from '../../services/authServise.js';
 
-const SECRET_KEY = process.env.SECRET_KEY;
-const EXPIRES_TIME = process.env.EXPIRES_TIME;
+const {
+  ACCESS_SECRET_KEY,
+  REFRESH_EXPIRES_TIME,
+  REFRESH_SECRET_KEY,
+  ACCESS_EXPIRIES_TIME,
+} = process.env;
 
 export const register = async (req, res) => {
   const { email, password } = req.body;
@@ -29,10 +33,23 @@ export const register = async (req, res) => {
       password: hashPwd,
     });
 
-    const token = jwt.sign(updatedUser._id, SECRET_KEY, {
-      expiresIn: EXPIRES_TIME,
+    const token = jwt.sign(updatedUser._id, ACCESS_SECRET_KEY, {
+      expiresIn: ACCESS_EXPIRIES_TIME,
     });
+
     const response = await updateUser(updatedUser._id, { token });
+
+    const refreshToken = jwt.sign({ id: updatedUser._id }, REFRESH_SECRET_KEY, {
+      expiresIn: REFRESH_EXPIRES_TIME,
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
     res.status(201).json({
       token,
       user: response,
@@ -45,10 +62,21 @@ export const register = async (req, res) => {
     ...req.body,
     password: hashPwd,
   });
-  const token = jwt.sign({ id }, SECRET_KEY, {
-    expiresIn: EXPIRES_TIME,
+  const token = jwt.sign({ id }, ACCESS_SECRET_KEY, {
+    expiresIn: ACCESS_EXPIRIES_TIME,
+  });
+  const refreshToken = jwt.sign({ id: user._id }, REFRESH_SECRET_KEY, {
+    expiresIn: REFRESH_EXPIRES_TIME,
   });
   const response = await updateUser(id, { token });
+
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    path: '/',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+  });
   res.status(201).json({
     token,
     user: response,
