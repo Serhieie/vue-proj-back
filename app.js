@@ -24,7 +24,17 @@ const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 const corsOptions = {
-  origin: '*',
+  origin: [
+    'https://github.com',
+    'https://serhieie.github.io',
+    'https://serhieie.github.io/goit-vue-project',
+    'https://serhieie.github.io/goit-vue-project/auth',
+    'https://serhieie.github.io/goit-vue-project/auth/registration',
+    'https://serhieie.github.io/goit-vue-project/auth/login',
+    'https://serhieie.github.io/goit-vue-project/map',
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ],
   credentials: true,
 };
 
