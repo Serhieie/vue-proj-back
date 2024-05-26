@@ -12,8 +12,8 @@
   "consumes": ["application/json", "multipart/formData"],
   "produces": ["application/json"],
   "servers": [
-    { "url": "https://vue-proj-back.onrender.com" },
-    { "url": "http://localhost:3000" }
+    { "url": "https://vue-proj-back.onrender.com/api" },
+    { "url": "http://localhost:3000/api" }
   ],
   "tags": [
     {
@@ -27,7 +27,7 @@
   ],
 
   "paths": {
-    "/api/user/register": {
+    "/user/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -65,7 +65,7 @@
         }
       }
     },
-    "/api/user/login": {
+    "/user/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -99,7 +99,7 @@
         }
       }
     },
-    "/api/user/refresh": {
+    "/user/refresh": {
       "get": {
         "tags": ["Auth"],
         "summary": "Get current user",
@@ -123,7 +123,7 @@
         }
       }
     },
-    "/api/user/logout": {
+    "/user/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -142,7 +142,7 @@
         }
       }
     },
-    "/api/user/update-profile": {
+    "/user/update-profile": {
       "patch": {
         "tags": ["Auth"],
         "operationId": "uploadFile",
@@ -195,7 +195,7 @@
         }
       }
     },
-    "/api/user/google": {
+    "/user/google": {
       "get": {
         "tags": ["Auth"],
         "summary": "User login with google",
@@ -208,7 +208,7 @@
         }
       }
     },
-    "/api/points": {
+    "/points": {
       "get": {
         "tags": ["Points"],
         "summary": "Get all boards",
@@ -232,7 +232,7 @@
         }
       }
     },
-    "/api/points/post": {
+    "/points/post": {
       "post": {
         "tags": ["Points"],
         "summary": "Post board",
@@ -271,7 +271,7 @@
         }
       }
     },
-    "/api/points/patch": {
+    "/points/patch": {
       "patch": {
         "tags": ["Points"],
         "summary": "Update bord on the server",
@@ -314,7 +314,7 @@
         }
       }
     },
-    "/api/points/delete/{pointId}": {
+    "/points/delete/{pointId}": {
       "delete": {
         "tags": ["Points"],
         "summary": "Delete board from the server",
