@@ -14,14 +14,16 @@ pointsRouter.get('/', pointsCtrl.getPoints);
 
 pointsRouter.post(
   '/post',
+  middleware.upload.single('img'),
+  middleware.parseCoordinates,
   middleware.validateBody(createPointSchema),
   pointsCtrl.addPoint
 );
 
 pointsRouter.patch(
   '/patch',
-  middleware.isValidId,
   middleware.upload.single('img'),
+  middleware.parseCoordinates,
   middleware.validateBody(updatePointSchema),
   pointsCtrl.updatePoint
 );

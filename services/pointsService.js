@@ -8,5 +8,5 @@ export const updatePointByFilter = (filter, data) =>
 
 export const removedPoint = (filter) => Point.findOneAndDelete(filter);
 
-export const createPoint = async (req) =>
-  Point.create({ ...req.body, owner: req.user._id });
+export const createPoint = async (body, userId) =>
+  Point.create({ ...body, owner: userId });

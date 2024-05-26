@@ -2,14 +2,10 @@ import { isValidObjectId } from 'mongoose';
 import helpers from '../helpers/index.js';
 
 const isValidId = (req, res, next) => {
-  const { boardId, cardId, columnId, id } = req.params;
+  const { pointId, id } = req.params;
   let idToCheck;
-  if (boardId) {
-    idToCheck = boardId;
-  } else if (cardId) {
-    idToCheck = cardId;
-  } else if (columnId) {
-    idToCheck = columnId;
+  if (pointId) {
+    idToCheck = pointId;
   } else if (id) {
     idToCheck = id;
   } else {

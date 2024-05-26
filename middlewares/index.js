@@ -3,5 +3,13 @@ import validateBody from './validateBody.js';
 import autenticate from './autenticate.js';
 import { validateToken } from './validateToken.js';
 import upload from './multerMd.js';
+import { parseCoordinates } from './parseCoordinates.js';
 
-export default { isValidId, validateBody, autenticate, upload, validateToken };
+export default {
+  isValidId,
+  validateBody,
+  autenticate,
+  upload,
+  validateToken,
+  parseCoordinates,
+};

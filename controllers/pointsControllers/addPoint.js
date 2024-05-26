@@ -1,7 +1,15 @@
-import { createPoint } from "../../services/pointsService.js";
+import { createPoint } from '../../services/pointsService.js';
 
-export const addPoint =  async (req, res) => {
-  const point =  await createPoint(req);
+export const addPoint = async (req, res) => {
+  const image = req.file;
 
-  res.json(point);
+  const newProfile = {
+    ...req.body,
+    img: image ? image.path : img,
+  };
+  const point = await createPoint(newProfile, req.user._id);
+
+  res.json({
+    message: 'success',
+  });
 };

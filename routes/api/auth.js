@@ -12,7 +12,7 @@ const authRouter = express.Router();
 authRouter.post(
   '/register',
   middleware.validateBody(authUserRegisterSchema),
-  authCtrl.logout
+  authCtrl.register
 );
 
 authRouter.post(

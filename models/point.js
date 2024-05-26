@@ -12,6 +12,7 @@ const pointSchema = new Schema(
     },
     img: {
       type: String,
+      default: '',
     },
     coordinates: {
       type: [Number],

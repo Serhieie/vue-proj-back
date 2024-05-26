@@ -1,14 +1,17 @@
-import httpError from "../../helpers/httpError.js";
-import { removedPoint } from "../../services/pointsService.js";
+import httpError from '../../helpers/httpError.js';
+import { removedPoint } from '../../services/pointsService.js';
 
 export const deletePoint = async (req, res) => {
   const { _id: owner } = req.user;
-  const { id } = req.params;
-  const result = await removedPoint({ owner, _id: id });
+  const { pointId } = req.params;
+  console.log(pointId);
+  const result = await removedPoint({ owner, _id: pointId });
 
   if (!result) {
-    throw httpError(404, `Point with id: ${id} not found`);
+    throw httpError(404, `Point with id: ${pointId} not found`);
   }
 
-  res.json(id);
+  res.json({
+    message: 'Success delete operation',
+  });
 };
