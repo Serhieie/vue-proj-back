@@ -123,6 +123,30 @@
         }
       }
     },
+    "/user/me": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get current user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Access to the requested resource is unauthorized.",
+            "content": {}
+          }
+        }
+      }
+    },
     "/user/logout": {
       "post": {
         "tags": ["Auth"],
@@ -156,13 +180,19 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "User's name",
+                    "example": "Johny Machine"
                   },
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
                   },
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "User's password",
+                    "example": "Query123"
                   },
                   "avatar": {
                     "type": "string",
@@ -239,12 +269,33 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "Post board object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/PostPointRequest"
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title of Point",
+                    "example": "Grand Rock"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of chosen location",
+                    "example": "This Location Is Beautiful."
+                  },
+                  "img": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image cloudinary path"
+                  },
+                  "coordinates": {
+                    "type": "string",
+                    "description": "Coordinates of location",
+                    "example": "'[50.4339063, 30.5552953]'"
+                  }
+                }
               }
             }
           }
@@ -278,12 +329,38 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "Update board object at the server",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/PatchPointRequest"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Point Id",
+                    "example": "6631f3841c36049d76cf1ac3"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Title of Point",
+                    "example": "Grand Rock"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of chosen location",
+                    "example": "This Location Is Beautiful."
+                  },
+                  "img": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image cloudinary path"
+                  },
+                  "coordinates": {
+                    "type": "string",
+                    "description": "Coordinates of location",
+                    "example": "'[50.4339063, 30.5552953]'"
+                  }
+                }
               }
             }
           }
@@ -424,118 +501,9 @@
           "avatarURL": "http://avatarpath.com/path"
         }
       },
-      "UpdateInfoRequest": {
-        "type": "object",
-        "required": [],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
-          },
-          "theme": {
-            "type": "string",
-            "description": "Chosed theme",
-            "example": "dark"
-          },
-          "avatarURL": {
-            "type": "file",
-            "description": "User's password"
-          }
-        },
-        "example": {
-          "theme": "dark",
-          "name": "Andy Machine",
-          "email": "user@example.com",
-          "avatarURL": "http://avatarpath.com/path"
-        }
-      },
       "CurrentRequest": {
         "type": "object",
         "properties": {}
-      },
-      "PostPointRequest": {
-        "type": "object",
-        "required": ["title", "description", "img", "coordinates"],
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "User point title",
-            "example": "Локація"
-          },
-          "description": {
-            "type": "string",
-            "description": "User point description",
-            "example": "Локація"
-          },
-          "img": {
-            "type": "string",
-            "description": "Background image url",
-            "example": "https://example/images/sakura.webp"
-          },
-          "coordinates": {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "description": "Coordinates of point",
-              "example": 50.4339063
-            },
-            "example": [50.4339063, 30.5552953]
-          }
-        },
-        "example": {
-          "title": "Локація",
-          "description": "Опис Локації",
-          "img": "img.png",
-          "coordinates": [50.4339063, 30.5552953]
-        }
-      },
-      "PatchPointRequest": {
-        "type": "object",
-        "required": ["id", "title", "description", "img", "coordinates"],
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Point Id",
-            "example": "6631f3841c36049d76cf1ac3"
-          },
-          "title": {
-            "type": "string",
-            "description": "User point title",
-            "example": "Локація"
-          },
-          "description": {
-            "type": "string",
-            "description": "User point description",
-            "example": "Локація"
-          },
-          "img": {
-            "type": "string",
-            "description": "Background image url",
-            "example": "https://example/images/sakura.webp"
-          },
-          "coordinates": {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "description": "Coordinates of point",
-              "example": 50.4339063
-            },
-            "example": [50.4339063, 30.5552953]
-          }
-        },
-        "example": {
-          "id": "6631f3841c36049d76cf1ac3",
-          "title": "Локація",
-          "description": "Опис Локації",
-          "img": "img.png",
-          "coordinates": [50.4339063, 30.5552953]
-        }
       },
       "RegistrationResponse": {
         "type": "object",
@@ -622,7 +590,20 @@
       "CurrentResponse": {
         "type": "object",
         "properties": {
-          "id": {
+          "accessToken": {
+            "type": "string",
+            "description": "User's accessToken",
+            "example": "xxxxx.yyyyy.zzzzz"
+          }
+        },
+        "example": {
+          "accessToken": "xxxxx.yyyyy.zzzzz"
+        }
+      },
+      "MeResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
             "type": "string",
             "description": "User's id",
             "example": "6631f3841c36049d76cf1ac3"
@@ -637,11 +618,23 @@
             "description": "User's email",
             "format": "email"
           },
-          "start": {
-            "type": "date",
-            "description": "User's token",
-            "example": "2024-05-01T07:47:16.688+00:00"
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": "http://avatarpath.com/path"
           }
+        },
+        "theme": {
+          "type": "string",
+          "description": "User's theme",
+          "example": "dark"
+        },
+        "example": {
+          "_id": "6631f3841c36049d76cf1ac3",
+          "name": "Andy Machine",
+          "email": "user@example.com",
+          "avatarURL": "http://avatarpath.com/path",
+          "theme": "dark"
         }
       },
       "GetAllPointsResponse": {
@@ -683,9 +676,14 @@
                 "example": [50.4339063, 30.5552953]
               },
               "owner": {
-                "type": "string",
-                "discription": "owner of point",
-                "example": "6631f3841c36049d76cf1ac3"
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "owner of point",
+                    "example": "6631f3841c36049d76cf1ac3"
+                  }
+                }
               },
               "_id": {
                 "type": "string",
@@ -701,8 +699,10 @@
             "title": "Локація",
             "description": "Опис Локації",
             "img": "img.png",
-            "owner": "642fe9e82510b1231233213",
-            "coordinates": [50.4339063, 30.5552953]
+            "coordinates": [50.4339063, 30.5552953],
+            "owner": {
+              "_id": "642fe9e82510b1231233213"
+            }
           }
         ]
       },

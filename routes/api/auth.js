@@ -23,6 +23,8 @@ authRouter.post(
 
 authRouter.post('/logout', middleware.validateToken, authCtrl.logout);
 
+authRouter.get('/me', middleware.validateToken, authCtrl.me);
+
 authRouter.get('/refresh', middleware.validateToken, authCtrl.refresh);
 
 authRouter.patch(
