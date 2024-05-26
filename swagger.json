@@ -1,0 +1,778 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "2.0.2",
+    "title": "MyPoints",
+    "description": "Documentation of MyPoints backend",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json", "multipart/formData"],
+  "produces": ["application/json"],
+  "servers": [
+     { "url": "https://reactoctopus-back.onrender.com/api" },
+       { "url": "http://localhost:3000/api" }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Points",
+      "description": "Points endpoints"
+    }
+  ],
+
+  "paths": {
+    "/user/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: The server cannot process the request (invalid request body).",
+            "content": {}
+          },
+          "409": {
+            "description": "Conflict: Email already in use.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: The server cannot process the request (invalid request body).",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/refresh": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get current user",
+        "parameters": [
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Access to the requested resource is unauthorized.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [ ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
+        "responses": {
+          "204": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized: Access to the requested resource is unauthorized.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/update-profile": {
+      "patch": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "uploadFile",
+        "summary": "Update user profile",
+        "description": "Endpoint to update user profile information",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User profile updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateInfoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: The server cannot process the request (invalid request body).",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized: Access to the requested resource is unauthorized.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/google": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User login with google",
+        "parameters": [],
+        "responses": {
+          "301": {
+            "description": "Redirect to google auth",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/points": {
+      "get": {
+        "tags": ["Points"],
+        "summary": "Get all boards",
+        "parameters": [
+   
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllPointsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Access to the requested resource is unauthorized.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/points/post": {
+      "post": {
+        "tags": ["Points"],
+        "summary": "Post board",
+        "parameters": [
+        
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Post board object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostPointRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostPointResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: The server cannot process the request (invalid request body).",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized: Access to the requested resource is unauthorized.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/points/patch": {
+      "patch": {
+        "tags": ["Points"],
+        "summary": "Update bord on the server",
+        "parameters": [
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Update board object at the server",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchPointRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchPointResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: The server cannot process the request (invalid request body).",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized: Access to the requested resource is unauthorized.",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found: The requested resource could not be found on the server.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/points/delete/{pointId}": {
+      "delete": {
+        "tags": ["Points"],
+        "summary": "Delete board from the server",
+        "parameters": [
+            {
+           "in": "path",
+          "name": "pointId",
+          "schema": {
+                 "type": "string",
+          "required": true,
+          "description": "Id of the Item"
+          }
+        }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePointResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Access to the requested resource is unauthorized.",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found: The requested resource could not be found on the server.",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Andy Machine"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      }, 
+      "LoginRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "UpdateInfoResponse": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          },
+           "theme": {
+            "type": "string",
+            "description": "Chosed theme",
+            "example": "dark"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's password",
+            "example": "http://avatarpath.com/path"
+          }
+        },
+        "example": 
+{
+  "theme": "dark",
+  "name": "Andy Machine",
+  "email": "user@example.com",
+  "avatarURL": "http://avatarpath.com/path"
+}
+      },
+      "UpdateInfoRequest": {
+        "type": "object",
+        "required": [],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          },
+           "theme": {
+            "type": "string",
+            "description": "Chosed theme",
+            "example": "dark"
+          },
+          "avatarURL": {
+            "type": "file",
+            "description": "User's password"
+          }
+        },
+        "example": 
+{
+  "theme": "dark",
+  "name": "Andy Machine",
+  "email": "user@example.com",
+  "avatarURL": "http://avatarpath.com/path"
+}
+      },
+      "CurrentRequest": {
+        "type": "object",
+        "properties": {}
+      },
+      "PostPointRequest": {
+        "type": "object",
+        "required": ["title", "description", "img", "coordinates"],
+        "properties": {
+          "title": {
+              "type": "string",
+              "description": "User point title",
+              "example": "Локація"
+            },
+            "description": {
+              "type": "string",
+              "description": "User point description",
+              "example": "Локація"
+            },
+            "img": {
+              "type": "string",
+              "description": "Background image url",
+              "example": "https://example/images/sakura.webp"
+            },
+            "coordinates": {
+                "type": "array",
+                "items": {
+                    "type": "number",
+                    "description": "Coordinates of point", 
+                    "example": 50.4339063
+                },
+                "example": [50.4339063,
+      30.5552953]
+            }
+
+        },
+        "example": {
+  "title": "Локація",
+  "description": "Опис Локації",
+  "img": "img.png",
+  "coordinates": [
+    50.4339063,
+    30.5552953
+  ]
+}
+      },
+      "PatchPointRequest": {
+         "type": "object",
+        "required": ["id", "title", "description", "img", "coordinates"],
+        "properties": {
+            "id": {
+              "type": "string",
+              "description": "Point Id",
+              "example": "6631f3841c36049d76cf1ac3"
+            },
+          "title": {
+              "type": "string",
+              "description": "User point title",
+              "example": "Локація"
+            },
+            "description": {
+              "type": "string",
+              "description": "User point description",
+              "example": "Локація"
+            },
+            "img": {
+              "type": "string",
+              "description": "Background image url",
+              "example": "https://example/images/sakura.webp"
+            },
+            "coordinates": {
+                "type": "array",
+                "items": {
+                    "type": "number",
+                    "description": "Coordinates of point", 
+                    "example": 50.4339063
+                },
+                "example": [50.4339063,
+      30.5552953]
+            }
+
+        },
+  "example": {
+  "id": "6631f3841c36049d76cf1ac3",
+  "title": "Локація",
+  "description": "Опис Локації",
+  "img": "img.png",
+  "coordinates": [
+    50.4339063,
+    30.5552953
+  ]
+}
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+           "user": {
+     "theme": {
+            "type": "string",
+            "description": "User's theme",
+            "example": "dark"
+          },
+   "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Andy Machine"
+          },
+     "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+    "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": ""
+          }
+        },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzFmMzg0MWMzNjA0OWQ3NmNmMWFjMyIsImlhdCI6MTcxNDU0OTYzNiwiZXhwIjoxNzE0NTUzMjM2fQ._bvC8euAfl_oehYuN8q7Ymtgc3T6Y3VpfYSFrJWgp_k"
+          }
+        },
+       "example": {
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDFkMzFlMmExM2Y3OTg4ZTA5MTllNSIsImlhdCI6MTcxNTU4OTkxOCwiZXhwIjoxNzE1NjcyNzE4fQ.h_Y2CEPt7mQkTRDEdMmb9K5tL5u8vWoaKIfAPCmHM58",
+  "user": {
+    "theme": "dark",
+    "name": "An Machine",
+    "email": "ur@example.com",
+    "avatarURL": ""
+  }
+}
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+                "user": {
+     "theme": {
+            "type": "string",
+            "description": "User's theme",
+            "example": "dark"
+          },
+   "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Andy Machine"
+          },
+     "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+    "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": ""
+          }
+        },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzFmMzg0MWMzNjA0OWQ3NmNmMWFjMyIsImlhdCI6MTcxNDU0OTYzNiwiZXhwIjoxNzE0NTUzMjM2fQ._bvC8euAfl_oehYuN8q7Ymtgc3T6Y3VpfYSFrJWgp_k"
+          }
+        },
+       "example": {
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDFkMzFlMmExM2Y3OTg4ZTA5MTllNSIsImlhdCI6MTcxNTU4OTkxOCwiZXhwIjoxNzE1NjcyNzE4fQ.h_Y2CEPt7mQkTRDEdMmb9K5tL5u8vWoaKIfAPCmHM58",
+  "user": {
+    "theme": "dark",
+    "name": "An Machine",
+    "email": "ur@example.com",
+    "avatarURL": ""
+  }
+        }
+      },
+      "CurrentResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "6631f3841c36049d76cf1ac3"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Andy Machine"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "start": {
+            "type": "date",
+            "description": "User's token",
+            "example": "2024-05-01T07:47:16.688+00:00"
+          }
+        }
+      },
+      "GetAllPointsResponse": {
+        "type": "array",
+        "items": {
+          "result":{
+           "type": "object",
+          "required": ["title", "img", "description", "owner", "_id", "coordinates"],
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "User point title",
+              "example": "Локація"
+            },
+            "description": {
+              "type": "string",
+              "description": "User point description",
+              "example": "Локація"
+            },
+            "img": {
+              "type": "string",
+              "description": "Background image url",
+              "example": "https://example/images/sakura.webp"
+            },
+            "coordinates": {
+                "type": "array",
+                "items": {
+                    "type": "number",
+                    "description": "Coordinates of point", 
+                    "example": 50.4339063
+                },
+                "example": [50.4339063,
+      30.5552953]
+            },
+            "owner": {
+              "type": "string",
+              "discription": "owner of point",
+              "example": "6631f3841c36049d76cf1ac3"
+            },
+            "_id": {
+              "type": "string",
+              "description": "board id",
+              "example": "6631f3841c36049d76cf1ac3"
+            }
+          }
+      
+          }
+        },
+        "example": [
+  {
+    "_id": "642fe9e82316g5089068395",
+    "title": "Локація",
+    "description": "Опис Локації",
+    "img": "img.png",
+    "owner": "642fe9e82510b1231233213",
+    "coordinates": [
+      50.4339063,
+      30.5552953
+    ]
+  }
+]
+      },
+      "PostPointResponse": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example":  "success"
+          }
+        },
+        "example": {
+                "message": "success"
+            }
+        },
+      "PatchPointResponse": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example":  "success"
+          }
+        },
+        "example": {
+                "message": "success"
+            }
+        },
+      "DeletePointResponse": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example":  "success"
+          }
+        },
+        "example": {
+                "message": "Success delete operation"
+            }
+        }
+      },
+          "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+    }
+  }
