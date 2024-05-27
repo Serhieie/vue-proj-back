@@ -98,8 +98,8 @@ export const googleRedirect = async (req, res) => {
       httpOnly: true,
       path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'None',
     });
     return res.redirect(
       `${process.env.FRONTEND_URL}auth/google/?token=${token}`
@@ -122,8 +122,8 @@ export const googleRedirect = async (req, res) => {
         httpOnly: true,
         path: '/',
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: true,
+        sameSite: 'None',
       });
       return res.redirect(
         `${process.env.FRONTEND_URL}auth/google/?token=${token}`
@@ -147,8 +147,8 @@ export const googleRedirect = async (req, res) => {
         httpOnly: true,
         path: '/',
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: true,
+        sameSite: 'None',
       });
       return res.redirect(
         `${process.env.FRONTEND_URL}auth/google/?token=${token}`

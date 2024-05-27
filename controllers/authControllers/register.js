@@ -47,8 +47,8 @@ export const register = async (req, res) => {
       httpOnly: true,
       path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'None',
     });
     res.status(201).json({
       token,

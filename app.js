@@ -33,9 +33,11 @@ const corsOptions = {
     'https://serhieie.github.io/goit-vue-project/auth/login',
     'https://serhieie.github.io/goit-vue-project/map',
     'http://localhost:5173',
+    'http://localhost:5174',
     'http://localhost:3000',
   ],
   credentials: true,
+  optionsSuccessStatus: 200,
 };
 
 app.use(logger(formatsLogger));
